@@ -11,7 +11,7 @@ routes.post('/create', Colaboradores.store);
 
 routes.get('/list', Colaboradores.show);
 
-routes.get('/list/:id', Colaboradores.index);
+routes.get('/list/:cpf', Colaboradores.index);
 
 routes.put('/edit/:cpf', Colaboradores.update);
 

@@ -8,12 +8,13 @@ class ColaboradorController {
   }
 
   async index(req, res) {
-    const { id } = req.params;
-    const colaboradorId = await ColaboradorService.findColaborador({ id });
+    const { cpf } = req.params;
+    console.log('CPF => ',cpf);
+    const colaboradorId = await ColaboradorService.findColaborador({ cpf });
     if (!colaboradorId)
       return res
       .status(404)
-      .json({ message: "Não existe cadastro para esse colaborador"})
+      .json({ message: "Não existe cadastro para esse CPF"})
     return res.json(colaboradorId);
   }
 
@@ -28,6 +29,10 @@ class ColaboradorController {
         nascimento,
         email
       });
+      if (colaborador === 0)
+      return res
+        .status(404)
+        .json({ error: "Já existe cadastro para esse CPF!" });
       return res.json(colaborador);
     
   }
@@ -35,10 +40,19 @@ class ColaboradorController {
   async update(req, res) {
     const { cpf } = req.params;
     const { nome, sobrenome, nascimento, email } = req.body;
+    try {
+      const editColaborador = await ColaboradorService.updateColaborador({ nome, sobrenome, cpf, nascimento, email });
+      console.log(editColaborador);
+      if (editColaborador <= 0){
+        return res
+          .status(404)
+          .json({ error: "Não existe cadastro para esse CPF!" });
+      }
+      return res.json(editColaborador);
+    } catch (error) {
+      return new Error(error);
+    }
     
-    const editColaborador = ColaboradorService.updateColaborador({ nome, sobrenome, cpf, nascimento, email });
-  
-    return res.json(editColaborador);
   }
 
   async delete(req, res) {
@@ -49,7 +63,7 @@ class ColaboradorController {
         .status(404)
         .json({ error: "Não existe cadastro para esse CPF!" });
     
-    return res.json({ message: "Cadastro excluido com sucesso." });
+    return res.json({ message: `Cadastro do CPF ${cpf} excluido com sucesso.` });
   }
 }
 

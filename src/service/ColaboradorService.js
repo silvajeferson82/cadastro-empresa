@@ -6,42 +6,40 @@ class ColaboradorService {
     return allColobordor;
   }
 
-  async findColaborador({id}) {
-    const colaboradorId = await Colaborador.findOne({ where: { id } });
+  async findColaborador({cpf}) {
+    const colaboradorId = await Colaborador.findOne({ where: { cpf } });
     return colaboradorId
   }
 
   async addColaborador({nome,sobrenome,cpf,nascimento,email}) {
     const cpfExist = await Colaborador.findOne({where: {cpf}});
-    if (cpfExist) throw new Error("CPF já existe na base!");
-    try {
+    if (cpfExist) return new Error("CPF já existe na base!");
+
       const createColaborador = await Colaborador.create({
         nome, sobrenome, cpf, nascimento, email
       });
       
       return createColaborador;
-    }catch (error) {
-      return new Error('Falha ao criar cadastro...');
-    }
+    
   }
     
 
   async updateColaborador({ nome, sobrenome, cpf, nascimento, email }) {
 
-    const cpfExist = await Colaborador.findOne({where: {cpf}});
-    if (cpfExist === null) throw new Error('CPF não exite na base.');
-
-    if (cpfExist) {
       const editColaborador = await Colaborador.update(
         {
           nome, sobrenome, nascimento, email
         },
         { where: { cpf } }
-      )
-      console.log(editColaborador);
-      return cpfExist;
-    }
-    return cpfExist;
+      );
+
+      if(editColaborador >= 1){
+        const cpfExist = await Colaborador.findOne({where: {cpf}});
+        return cpfExist;
+      }
+
+
+    return editColaborador;
   }
 
   async delColaborador({cpf}) {
