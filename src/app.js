@@ -1,5 +1,6 @@
 import express from 'express';
-import routes from './routes';
+import routes from './routeGeneral';
+import cors from 'cors';
 
 import './database';
 
@@ -8,6 +9,7 @@ class App{
     this.server = express();
     this.server.use(express.json({ limit: '100mb', extended: true }));
     this.server.use(routes);
+    this.server.use(cors());
   
   }
   routes() {

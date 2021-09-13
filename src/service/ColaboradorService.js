@@ -33,7 +33,7 @@ class ColaboradorService {
         { where: { cpf } }
       );
 
-      if(editColaborador >= 1){
+      if(editColaborador !== 0){
         const cpfExist = await Colaborador.findOne({where: {cpf}});
         return cpfExist;
       }

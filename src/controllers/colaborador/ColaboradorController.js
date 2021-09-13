@@ -42,7 +42,6 @@ class ColaboradorController {
     const { nome, sobrenome, nascimento, email } = req.body;
     try {
       const editColaborador = await ColaboradorService.updateColaborador({ nome, sobrenome, cpf, nascimento, email });
-      console.log(editColaborador);
       if (editColaborador <= 0){
         return res
           .status(404)
