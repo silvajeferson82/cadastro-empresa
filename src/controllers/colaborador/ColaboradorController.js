@@ -29,10 +29,12 @@ class ColaboradorController {
         nascimento,
         email
       });
-      if (colaborador === 0)
+      console.log(typeof colaborador);
+      if (Object.keys(colaborador).length === 0 ){
       return res
         .status(404)
-        .json({ error: "Já existe cadastro para esse CPF!" });
+        .json({error: "Já existe cadastro para esse CPF!"})
+      }
       return res.json(colaborador);
     
   }

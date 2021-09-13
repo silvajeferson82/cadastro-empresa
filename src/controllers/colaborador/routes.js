@@ -104,6 +104,48 @@ const routes = express.Router();
  *          description: Erro no servidor
  */
 
+/**
+ * @swagger
+ * # schemes:
+ * # - http
+ * /colaborador/create:
+ *   post:
+ *     tags: 
+ *     - Colaborador
+ *     summary: Criar novo cadastro de colaborador.
+ *     description:  Inserir nome, sobrenome, nascimento, cpf e e-mail. 
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json: 
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome: 
+ *                 type: string
+ *                 description: Primeiro nome.
+ *                 example: "Antonio"
+ *               sobrenome:
+ *                 type: string
+ *                 description: Segundo nome.
+ *                 example: "Da Silva"
+ *               nascimento: 
+ *                 type: string
+ *                 description: Nascimento do colaborador.
+ *                 example: "1970-01-01" 
+ *               cpf: 
+ *                 type: string
+ *                 description: CPF do colaborador.
+ *                 example: "64803665060"
+ *               email: 
+ *                 type: string
+ *                 description: Email do colaborador.
+ *                 example: "teste@email.com.br"   
+ *     responses:
+ *       200:
+ *         description: Sucesso ao cadastrar o colaborador.
+ * 
+ */
 
 routes.post('/create', Colaboradores.store);
 

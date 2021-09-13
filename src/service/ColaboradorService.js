@@ -13,13 +13,17 @@ class ColaboradorService {
 
   async addColaborador({nome,sobrenome,cpf,nascimento,email}) {
     const cpfExist = await Colaborador.findOne({where: {cpf}});
-    if (cpfExist) return new Error("CPF já existe na base!");
-
+    if (!cpfExist){
       const createColaborador = await Colaborador.create({
         nome, sobrenome, cpf, nascimento, email
       });
       
       return createColaborador;
+    }
+    const createColaborador = [];
+    return createColaborador;
+
+      
     
   }
     

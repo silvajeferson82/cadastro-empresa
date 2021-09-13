@@ -1,8 +1,8 @@
 module.exports = {
-  dialect: 'mysql',
+  dialect: 'postgres',
   host: 'localhost',
-  username: 'root',
-  password: '',
+  username: 'postgres',
+  password: 'root',
   database: 'db_colaborador',
   define: {
     timestamps: true,
