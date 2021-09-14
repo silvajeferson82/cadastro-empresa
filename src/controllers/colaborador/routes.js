@@ -147,6 +147,79 @@ const routes = express.Router();
  * 
  */
 
+/**
+ * @swagger
+ * # schemes:
+ * # - http
+ * /colaborador/edit/{cpf}:
+ *   put:
+ *     tags: 
+ *     - Colaborador
+ *     summary: Editar cadastro de colaborador.
+ *     parameters:
+ *       - name: cpf
+ *         in: path
+ *         required: true
+ *     description:  Inserir nome, sobrenome, nascimento e e-mail. 
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json: 
+ *           schema:
+ *             type: object
+ *             properties:
+ *               nome: 
+ *                 type: string
+ *                 description: Primeiro nome.
+ *                 example: "Antonio"
+ *               sobrenome:
+ *                 type: string
+ *                 description: Segundo nome.
+ *                 example: "Da Silva"
+ *               nascimento: 
+ *                 type: string
+ *                 description: Nascimento do colaborador.
+ *                 example: "1970-01-01" 
+ *               email: 
+ *                 type: string
+ *                 description: Email do colaborador.
+ *                 example: "teste@email.com.br"   
+ *     responses:
+ *       200:
+ *         description: Sucesso ao cadastrar o colaborador.
+ * 
+ */
+
+
+/**
+ * @swagger
+ * # schemes:
+ * # - http
+ * /colaborador/delete/{cpf}:
+ *   delete:
+ *     tags: 
+ *     - Colaborador
+ *     summary: Excluir cadastro do colaboradot com CPF informado.
+ *     parameters:
+ *       - name: cpf
+ *         in: path
+ *         required: true
+ *         description: "Inserir documento sem traços ou pontos"
+ *         type: string
+ *         example: "28412429001"
+ *     responses:
+ *       200:
+ *         description: Sucesso ao excluir cadastro.
+ *       400:
+ *         description: Requisição inválida
+ *       404:
+ *         description: Não encontrado
+ *       500:
+ *          description: Erro no servidor
+ *         
+ */
+
+
 routes.post('/create', Colaboradores.store);
 
 routes.get('/list', Colaboradores.show);

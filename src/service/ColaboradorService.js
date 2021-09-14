@@ -22,9 +22,7 @@ class ColaboradorService {
     }
     const createColaborador = [];
     return createColaborador;
-
-      
-    
+  
   }
     
 
