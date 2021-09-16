@@ -15,13 +15,15 @@ class Enderecos extends Model{
         type: DataTypes.INTEGER,
         allowNull: false,
       }
-    },
-      {
+    },{
         sequelize,
         tableName: 'enderecos'
       });
-    return this;
   }
+  static associate(models){
+    this.belongsTo(models.Colaborador, { foreignKey: 'colaboradorId', as: 'colaborador'});
+  }
+  
 }
 
 module.exports = Enderecos;

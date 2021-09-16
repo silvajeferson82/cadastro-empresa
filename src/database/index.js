@@ -9,4 +9,6 @@ const connection = new Sequelize(dbConfig);
 Colaborador.init(connection);
 Enderecos.init(connection);
 
+Enderecos.associate(connection.models);
+
 module.exports = connection;
