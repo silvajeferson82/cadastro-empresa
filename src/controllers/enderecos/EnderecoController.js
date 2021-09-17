@@ -2,14 +2,12 @@ import EnderecoService from "../../service/EnderecoService";
 
 class EnderecoController{
   async store(req, res){
-    const { colabaradorId } = req.params;
+    const { colaboradorId } = req.params;
     const { cep,rua,numero} = req.body;
 
-    console.log(req.params, req.body);
-
-    const createEndereco = await EnderecoService.addEndereco({
-        cep, rua, numero, colabaradorId
-      });
+    const createEndereco = await EnderecoService.addEndereco(
+        cep, rua, numero, colaboradorId
+      );
 
     if(Object.keys(createEndereco).length === 0){
       return res
