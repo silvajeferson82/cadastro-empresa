@@ -2,20 +2,33 @@ import Enderecos from '../models/Enderecos';
 import Colaborador from '../models/Colaborador';
 
 class EnderecoService{
-  async addEndereco( cep, rua, numero, colaboradorId ){
-    console.log('TESTE AQUI--',cep, rua, numero, colaboradorId);
-    const colaborador = await Colaborador.findByPk(colaboradorId);
-    console.log(colaborador);
-    if(colaborador){
-      const createEndereco = await Enderecos.create({
-        cep, rua, numero, colaboradorId,
-      })
+  async findEndereco({colaborador_cpf}){
+    console.log('CHEGOU AQUI..');
 
-      return createEndereco;
+    const enderecoColaborador = await Colaborador.findOne(
+      {
+        where: {cpf: colaborador_cpf},
+        include:[{model: Enderecos}],
+      });
+    
+    return enderecoColaborador;
+  }
+
+  async addEndereco( {cep,rua,numero,bairro,cidade,colaborador_cpf} ){
+    try{
+      const colaborador = await Colaborador.findOne({where: {cpf: colaborador_cpf}});
+    
+    if(!colaborador){
+      const colaboradorNull = [];
+      return colaboradorNull;
     }
 
-    const colaboradorNull = [];
-    return colaboradorNull;
+    const createEndereco = await Enderecos.create({
+      colaborador_cpf,cep,rua,numero,bairro,cidade
+    })
+
+    return createEndereco;
+    }catch(err){return err}
     
   }
 } 

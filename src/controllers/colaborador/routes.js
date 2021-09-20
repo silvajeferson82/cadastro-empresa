@@ -199,7 +199,7 @@ const routes = express.Router();
  *   delete:
  *     tags: 
  *     - Colaborador
- *     summary: Excluir cadastro do colaboradot com CPF informado.
+ *     summary: Excluir cadastro do colaborador com CPF informado.
  *     parameters:
  *       - name: cpf
  *         in: path
@@ -222,9 +222,9 @@ const routes = express.Router();
 
 routes.post('/create', Colaboradores.store);
 
-routes.get('/list', Colaboradores.show);
+routes.get('/list', Colaboradores.index);
 
-routes.get('/list/:cpf', Colaboradores.index);
+routes.get('/list/:cpf', Colaboradores.show);
 
 routes.put('/edit/:cpf', Colaboradores.update);
 

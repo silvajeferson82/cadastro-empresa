@@ -28,7 +28,10 @@ class Colaborador extends Model{
         sequelize,
         tableName: 'colaboradores'
       });
-    return this;
+      return this;
+  }
+  static associate(models){
+    this.hasMany(models.Enderecos, { foreignKey: 'colaborador_cpf'})
   }
 }
 

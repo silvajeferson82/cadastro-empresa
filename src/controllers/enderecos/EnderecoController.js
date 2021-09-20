@@ -1,12 +1,24 @@
 import EnderecoService from "../../service/EnderecoService";
 
 class EnderecoController{
-  async store(req, res){
-    const { colaboradorId } = req.params;
-    const { cep,rua,numero} = req.body;
+  async show(req, res){
+    const {colaborador_cpf} = req.params;
 
+    const enderecoColaborador = await EnderecoService.findEndereco({colaborador_cpf});
+    /* if(!enderecoColaborador){
+      return res
+        .status(404)
+        .json({error:"Não existe endereco para CPF informado."})
+    } */
+    return res.json(enderecoColaborador);
+  }
+
+  async store(req, res){
+    const { colaborador_cpf } = req.params;
+    const { cep,rua,numero,bairro,cidade} = req.body;
+    console.log(colaborador_cpf);
     const createEndereco = await EnderecoService.addEndereco(
-        cep, rua, numero, colaboradorId
+       { cep, rua, numero,bairro,cidade,colaborador_cpf}
       );
 
     if(Object.keys(createEndereco).length === 0){

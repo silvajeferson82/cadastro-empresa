@@ -10,5 +10,6 @@ Colaborador.init(connection);
 Enderecos.init(connection);
 
 Enderecos.associate(connection.models);
+Colaborador.associate(connection.models);
 
 module.exports = connection;

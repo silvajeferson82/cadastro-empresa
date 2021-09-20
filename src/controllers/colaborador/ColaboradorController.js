@@ -1,13 +1,13 @@
 import ColaboradorService from '../../service/ColaboradorService';
 
 class ColaboradorController {
-  async show(req, res) {
+  async index(req, res) {
     const listColaborador = await ColaboradorService.listColaborador();
 
     return res.json(listColaborador);
   }
 
-  async index(req, res) {
+  async show(req, res) {
     const { cpf } = req.params;
     console.log('CPF => ',cpf);
     const colaboradorId = await ColaboradorService.findColaborador({ cpf });
