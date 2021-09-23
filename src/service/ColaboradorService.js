@@ -25,7 +25,6 @@ class ColaboradorService {
   
   }
     
-
   async updateColaborador({ nome, sobrenome, cpf, nascimento, email }) {
 
       const editColaborador = await Colaborador.update(

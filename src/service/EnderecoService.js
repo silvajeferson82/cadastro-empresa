@@ -38,6 +38,22 @@ class EnderecoService{
     return createEndereco;
     
   }
+  async updateEndereco({cep,rua,numero,bairro,cidade,colaborador_cpf}){
+    const colaborador = await Colaborador.findOne({where: {cpf: colaborador_cpf}});
+    
+    if(!colaborador){
+      throw new Error ("Não existe cadastro para esse CPF")
+    }
+
+    const editEndereco = await Enderecos.update(
+      { 
+        cep,rua,numero,bairro,cidade
+      },
+      { where: {colaborador_cpf}}
+    )
+
+    return editEndereco;
+  }
 } 
 
 export default new EnderecoService();

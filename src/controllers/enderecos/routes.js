@@ -10,5 +10,6 @@ routes.get('/',(req,res)=>{
 routes.post('/create/:colaborador_cpf', EnderecoController.store);
 routes.get('/list/:colaborador_cpf',EnderecoController.show);
 routes.get('/list',EnderecoController.index);
+routes.put('/edit/:colaborador_cpf',EnderecoController.update);
 
 export default routes;

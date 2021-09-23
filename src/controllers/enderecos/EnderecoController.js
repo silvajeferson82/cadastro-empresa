@@ -36,5 +36,16 @@ class EnderecoController{
       return res.json({message:error});
     }
   }
+
+  async update(req,res){
+    const { colaborador_cpf } = req.params;
+    const { cep,rua,numero,bairro,cidade } = req.body;
+    try{
+    const endereco = await EnderecoService.updateEndereco(
+      {cep,rua,numero,bairro,cidade, colaborador_cpf}
+    );
+    return endereco;
+    }catch(error){return res.json({error: error})}
+  }
 } 
 export default new EnderecoController();
