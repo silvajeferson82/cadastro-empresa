@@ -2,25 +2,33 @@ import Enderecos from '../models/Enderecos';
 import Colaborador from '../models/Colaborador';
 
 class EnderecoService{
-  async findEndereco({colaborador_cpf}){
-    console.log('CHEGOU AQUI..');
+  async listEndereco(){
+    const enderecos =  await Enderecos.findAll();
 
-    const enderecoColaborador = await Colaborador.findOne(
+    return enderecos;
+  }
+
+  async findEndereco({colaborador_cpf}){
+    const colaborador = await Colaborador.findOne(
       {
-        where: {cpf: colaborador_cpf},
-        include:[{model: Enderecos}],
+        where: {cpf: colaborador_cpf}
       });
+
+      if(!colaborador){
+        throw new Error ("Não existe cadastro para esse CPF")
+      }
+
+      const endereco = await Enderecos.findOne({where: {colaborador_cpf}});
     
-    return enderecoColaborador;
+    return { colaborador, endereco };
   }
 
   async addEndereco( {cep,rua,numero,bairro,cidade,colaborador_cpf} ){
-    try{
-      const colaborador = await Colaborador.findOne({where: {cpf: colaborador_cpf}});
+
+    const colaborador = await Colaborador.findOne({where: {cpf: colaborador_cpf}});
     
     if(!colaborador){
-      const colaboradorNull = [];
-      return colaboradorNull;
+      throw new Error ("Não existe cadastro para esse CPF")
     }
 
     const createEndereco = await Enderecos.create({
@@ -28,7 +36,6 @@ class EnderecoService{
     })
 
     return createEndereco;
-    }catch(err){return err}
     
   }
 } 

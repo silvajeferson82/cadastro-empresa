@@ -1,32 +1,40 @@
 import EnderecoService from "../../service/EnderecoService";
 
 class EnderecoController{
+  async index(req,res){
+    try{
+    const enderecos = await EnderecoService.listEndereco();
+
+    return res.json({enderecos});
+    }catch(error){
+      return res.json({error});
+    }
+  }
+
   async show(req, res){
     const {colaborador_cpf} = req.params;
-
-    const enderecoColaborador = await EnderecoService.findEndereco({colaborador_cpf});
-    /* if(!enderecoColaborador){
-      return res
-        .status(404)
-        .json({error:"Não existe endereco para CPF informado."})
-    } */
-    return res.json(enderecoColaborador);
+    try{
+    const {colaborador, endereco} = await EnderecoService.findEndereco({colaborador_cpf});
+    
+    return res.json({colaborador, endereco});
+    }catch(error){
+    return res.json({message:error});
+  }
   }
 
   async store(req, res){
     const { colaborador_cpf } = req.params;
     const { cep,rua,numero,bairro,cidade} = req.body;
-    console.log(colaborador_cpf);
+  
+    try{
     const createEndereco = await EnderecoService.addEndereco(
        { cep, rua, numero,bairro,cidade,colaborador_cpf}
       );
 
-    if(Object.keys(createEndereco).length === 0){
-      return res
-        .status(404)
-        .json({error:"Não exite colaboardor com ID informado."})
-    }  
     return res.json(createEndereco);
+    }catch(error){
+      return res.json({message:error});
+    }
   }
 } 
 export default new EnderecoController();
