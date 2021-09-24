@@ -7,23 +7,25 @@ class ColaboradorService {
   }
 
   async findColaborador({cpf}) {
-    const colaboradorId = await Colaborador.findOne({ where: { cpf } });
-    return colaboradorId
+    const colaborador= await Colaborador.findOne({ where: { cpf } });
+
+    if(!colaborador){
+      throw new Error("Não existe cadastro para esse CPF");
+    }
+    return colaborador
   }
 
   async addColaborador({nome,sobrenome,cpf,nascimento,email}) {
     const cpfExist = await Colaborador.findOne({where: {cpf}});
-    if (!cpfExist){
-      const createColaborador = await Colaborador.create({
-        nome, sobrenome, cpf, nascimento, email
-      });
-      
-      return createColaborador;
+    if (cpfExist){
+      throw new Error('Já existe cadastro para esse CPF');
     }
-    const createColaborador = [];
+
+    const createColaborador = await Colaborador.create({nome,sobrenome,cpf,nascimento,email})
+      
     return createColaborador;
-  
   }
+  
     
   async updateColaborador({ nome, sobrenome, cpf, nascimento, email }) {
 

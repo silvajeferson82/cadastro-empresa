@@ -9,19 +9,17 @@ class ColaboradorController {
 
   async show(req, res) {
     const { cpf } = req.params;
-    console.log('CPF => ',cpf);
+    try{
     const colaboradorId = await ColaboradorService.findColaborador({ cpf });
-    if (!colaboradorId)
-      return res
-      .status(404)
-      .json({ message: "Não existe cadastro para esse CPF"})
     return res.json(colaboradorId);
+    }catch(error){
+      return res.json({error});
+    }
   }
 
   async store(req, res) {
     const { nome,sobrenome,cpf,nascimento,email } = req.body;
-    console.log('CPF => ',cpf);
-
+    try{
       const colaborador = await ColaboradorService.addColaborador({
         nome,
         sobrenome,
@@ -29,13 +27,10 @@ class ColaboradorController {
         nascimento,
         email
       });
-      console.log(typeof colaborador);
-      if (Object.keys(colaborador).length === 0 ){
-      return res
-        .status(404)
-        .json({error: "Já existe cadastro para esse CPF!"})
-      }
       return res.json(colaborador);
+    }catch(error){
+      return res.json({error});
+    }
     
   }
 

@@ -44,7 +44,8 @@ class EnderecoController{
     const endereco = await EnderecoService.updateEndereco(
       {cep,rua,numero,bairro,cidade, colaborador_cpf}
     );
-    return endereco;
+    
+    return res.json(endereco);
     }catch(error){return res.json({error: error})}
   }
 } 
