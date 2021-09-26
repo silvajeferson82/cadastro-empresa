@@ -19,6 +19,10 @@ class EnderecoService{
       }
 
       const endereco = await Enderecos.findOne({where: {colaborador_cpf}});
+
+      if(!endereco){
+        throw new Error ("Não existe endereço para esse CPF")
+      }
     
     return { colaborador, endereco };
   }
@@ -50,9 +54,25 @@ class EnderecoService{
         cep,rua,numero,bairro,cidade
       },
       { where: {colaborador_cpf}}
-    )
+    );
 
-    return endereco;
+    let enderecoUpdated;
+
+    if(editEndereco !== 1){
+      enderecoUpdated = await Enderecos.findOne({where: {colaborador_cpf}});
+    }
+
+    return enderecoUpdated;
+  }
+
+  async delEndereco({colaborador_cpf}){
+    const deletEndereco = await Enderecos.destroy({where: {colaborador_cpf}});
+
+    if(!deletEndereco){
+      throw new Error('Não foi localizado cadastro para esse CPF.');
+    }
+
+    return deletEndereco;
   }
 } 
 

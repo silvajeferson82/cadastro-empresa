@@ -48,5 +48,18 @@ class EnderecoController{
     return res.json(endereco);
     }catch(error){return res.json({error: error})}
   }
+
+  async delete(req,res){
+    const { colaborador_cpf } = req.params;
+
+    try {
+      const deleteEndereco = await EnderecoService.delEndereco({colaborador_cpf});
+
+      return res.json(deleteEndereco);
+    } catch (error) {
+      console.log(error);
+      return res.json({error});
+    }
+  }
 } 
 export default new EnderecoController();

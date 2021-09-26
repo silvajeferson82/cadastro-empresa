@@ -29,20 +29,26 @@ class ColaboradorService {
     
   async updateColaborador({ nome, sobrenome, cpf, nascimento, email }) {
 
-      const editColaborador = await Colaborador.update(
-        {
-          nome, sobrenome, nascimento, email
-        },
-        { where: { cpf } }
-      );
+    const colaborador= await Colaborador.findOne({ where: { cpf } });
 
-      if(editColaborador !== 0){
-        const cpfExist = await Colaborador.findOne({where: {cpf}});
-        return cpfExist;
-      }
+    if(!colaborador){
+      throw new Error("Não existe cadastro para esse CPF");
+    }
 
+    const editColaborador = await Colaborador.update(
+      {
+        nome, sobrenome, nascimento, email
+      },
+      { where: { cpf } }
+    );
 
-    return editColaborador;
+    let colaboradorUpdated;
+
+    if(editColaborador !==1){
+      colaboradorUpdated = await Colaborador.findOne({where: {cpf}});
+    }
+
+    return colaboradorUpdated;
   }
 
   async delColaborador({cpf}) {

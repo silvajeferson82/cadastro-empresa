@@ -39,14 +39,10 @@ class ColaboradorController {
     const { nome, sobrenome, nascimento, email } = req.body;
     try {
       const editColaborador = await ColaboradorService.updateColaborador({ nome, sobrenome, cpf, nascimento, email });
-      if (editColaborador <= 0){
-        return res
-          .status(404)
-          .json({ error: "Não existe cadastro para esse CPF!" });
-      }
+      
       return res.json(editColaborador);
     } catch (error) {
-      return new Error(error);
+      return res.json({error});
     }
     
   }
