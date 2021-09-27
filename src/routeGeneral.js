@@ -4,6 +4,7 @@ import swaggerUI from 'swagger-ui-express';
 
 import Colaborador from './controllers/colaborador/routes';
 import Endereco from './controllers/enderecos/routes';
+import Departamento from './controllers/departamentos/routes';
 
 const routes = Router();
 
@@ -42,5 +43,6 @@ routes.use(
 
 routes.use('/colaborador', Colaborador);
 routes.use('/endereco',Endereco);
+routes.use('/departamento',Departamento);
 
 export default routes;

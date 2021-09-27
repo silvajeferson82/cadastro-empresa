@@ -31,7 +31,7 @@ class Colaborador extends Model{
       return this;
   }
   static associate(models){
-    this.hasMany(models.Enderecos, { foreignKey: 'colaborador_cpf'})
+    this.hasMany(models.Enderecos, { foreignKey: 'colaborador_cpf', as: 'enderecos'})
   }
 }
 
