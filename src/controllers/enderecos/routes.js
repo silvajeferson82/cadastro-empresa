@@ -61,14 +61,13 @@ const routes = Router();
  *   get:
  *     tags: 
  *     - Endereços
- *     summary: Retorna endereço do colaboardor pelo CPF informado.
+ *     summary: Retorna endereço e colaboardor pelo CPF informado.
  *     parameters:
  *       - name: colaborador_cpf
  *         in: path
  *         required: true
  *         description: "Inserir documento sem traços ou pontos"
  *         type: string
- *         example: "28412429001"
  *     responses:
  *       200:
  *         description: Endereço Localizado.
@@ -113,6 +112,128 @@ const routes = Router();
  *          description: Erro no servidor
  */
 
+/**
+ * @swagger
+ * # schemes:
+ * # - http
+ * /endereco/create/{colaborador_cpf}:
+ *   post:
+ *     tags: 
+ *     - Endereços
+ *     summary: Criar novo endereco para o colaborador.
+ *     description:  Inserir colaborador_cpf, cep, rua, número, bairro e cidade 
+ *     parameters:
+ *       - name: colaborador_cpf
+ *         in: path
+ *         required: true
+ *         description: "Inserir documento sem traços ou pontos"
+ *         type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json: 
+ *           schema:
+ *               type: object
+ *               properties:
+ *                 cep:
+ *                   type: string
+ *                   description: CEP do Colaborador.
+ *                   example: "66045-230"
+ *                 rua:
+ *                   type: string
+ *                   description: Endereço do Colaborador.
+ *                   example: "Rua São João"
+ *                 numero:
+ *                   type: string
+ *                   description: Número da residencia.
+ *                   example: "71"
+ *                 bairro:
+ *                   type: string
+ *                   description: Bairro do colaborador.
+ *                   example: "Concordia"
+ *                 cidade:
+ *                   type: string
+ *                   description: Cidade onde reside.
+ *                   example: "Belém"  
+ *     responses:
+ *       200:
+ *         description: Sucesso ao cadastrar o endereço.
+ * 
+ */
+
+/**
+ * @swagger
+ * # schemes:
+ * # - http
+ * /endereco/edit/{colaborador_cpf}:
+ *   put:
+ *     tags: 
+ *     - Endereços
+ *     summary: Editar endereço do colaborador.
+ *     parameters:
+ *       - name: colaborador_cpf
+ *         in: path
+ *         required: true
+ *     description:  Inserir colaborador_cpf, cep, rua, número, bairro e cidade  
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json: 
+ *           schema:
+ *             type: object
+ *             properties:
+  *                 cep:
+ *                   type: string
+ *                   description: CEP do Colaborador.
+ *                   example: "66045-230"
+ *                 rua:
+ *                   type: string
+ *                   description: Endereço do Colaborador.
+ *                   example: "Rua São João"
+ *                 numero:
+ *                   type: string
+ *                   description: Número da residencia.
+ *                   example: "71"
+ *                 bairro:
+ *                   type: string
+ *                   description: Bairro do colaborador.
+ *                   example: "Concordia"
+ *                 cidade:
+ *                   type: string
+ *                   description: Cidade onde reside.
+ *                   example: "Belém"  
+ *     responses:
+ *       200:
+ *         description: Sucesso ao editar o endereço.
+ * 
+ */
+
+/**
+ * @swagger
+ * # schemes:
+ * # - http
+ * /endereco/delete/{colaborador_cpf}:
+ *   delete:
+ *     tags: 
+ *     - Endereços
+ *     summary: Excluir endereço do colaborador com CPF informado.
+ *     parameters:
+ *       - name: colaborador_cpf
+ *         in: path
+ *         required: true
+ *         description: "Inserir documento sem traços ou pontos"
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: Sucesso ao excluir cadastro.
+ *       400:
+ *         description: Requisição inválida
+ *       404:
+ *         description: Não encontrado
+ *       500:
+ *          description: Erro no servidor
+ *         
+ */
 
 routes.get('/',(req,res)=>{
   return res.json({mesage: "Teste na rota Endereco..."});

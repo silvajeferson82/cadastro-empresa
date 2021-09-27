@@ -63,7 +63,6 @@ const routes = express.Router();
  *         required: true
  *         description: "Inserir documento sem traços ou pontos"
  *         type: string
- *         example: "28412429001"
  *     responses:
  *       200:
  *         description: Listagem dos colaboradores.
